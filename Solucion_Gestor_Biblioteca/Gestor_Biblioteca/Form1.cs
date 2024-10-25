@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Gestor_Biblioteca
@@ -16,5 +9,17 @@ namespace Gestor_Biblioteca
         {
             InitializeComponent();
         }
+
+        private void BtnClientes_Click(object sender, EventArgs e)
+        {
+            frmUsuarios usuariosForm = new frmUsuarios();
+            usuariosForm.Show();
+        }
+
+        private void BtnPrestamos_Click(object sender, EventArgs e)
+        {
+            // Aquí puedes agregar la lógica para abrir el formulario de préstamos
+        }
     }
 }
+
