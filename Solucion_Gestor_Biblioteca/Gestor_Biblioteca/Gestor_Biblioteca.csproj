@@ -68,17 +68,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -97,6 +98,39 @@
       <Project>{ebc6b887-fd25-4215-bb7b-625e19c3fa3f}</Project>
       <Name>Negocio</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\defaultimagenes.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\ImagenesUsuarios\bruce_banner.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\ImagenesUsuarios\carol_danvers.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\ImagenesUsuarios\clint_barton.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\ImagenesUsuarios\natasha_romanoff.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\ImagenesUsuarios\peter_parker.jpeg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\ImagenesUsuarios\stephen_strange.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\ImagenesUsuarios\steve_rogers.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\ImagenesUsuarios\thor_odinson.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\ImagenesUsuarios\tony_stark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\ImagenesUsuarios\wanda_maximoff.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
