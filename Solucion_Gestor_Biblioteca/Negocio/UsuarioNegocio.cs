@@ -53,5 +53,16 @@ namespace Negocio
             }
         }
 
+        public void EliminarUsuario(int id)
+        {
+            using (IDbConnection dbConnection = DbConnection.GetConnection())
+            {
+                dbConnection.Open();
+
+                string query = "DELETE FROM Usuarios WHERE ID = @ID";
+                dbConnection.Execute(query, new { ID = id });
+            }
+        }
+
     }
 }

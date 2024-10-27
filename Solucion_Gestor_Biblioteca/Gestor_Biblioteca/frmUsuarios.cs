@@ -96,11 +96,26 @@ namespace Gestor_Biblioteca
 
         private void BtnEliminar_Click(object sender, EventArgs e)
         {
-            // Aquí puedes agregar la lógica para eliminar el usuario seleccionado.
+            if (dgvUsuarios.SelectedRows.Count > 0)
+            {
+                DialogResult dialogResult = MessageBox.Show("¿Está seguro de que desea eliminar este usuario?", "Eliminar usuario", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    Usuario usuario = dgvUsuarios.SelectedRows[0].DataBoundItem as Usuario;
+                    usuarioNegocio.EliminarUsuario(usuario.ID);
+                    CargarUsuarios();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Seleccione un usuario para eliminar.");
+            }
+
         }
 
         private void BtnAgregar_Click(object sender, EventArgs e)
         {
+            bloquearCampos(true);
             MostrarPaneles(true);
             dgvUsuarios.Enabled = false;
             dgvUsuarios.ClearSelection();
@@ -214,7 +229,6 @@ namespace Gestor_Biblioteca
             modificar = false;
             usuarioSeleccionado = null;
         }
-
 
         private void LimpiarCampos()
         {
