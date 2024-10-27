@@ -17,5 +17,16 @@ namespace Negocio
                 return dbConnection.Query<Usuario>(query);
             }
         }
+
+        public void InsertarUsuario(Usuario usuario)
+        {
+            using (IDbConnection dbConnection = DbConnection.GetConnection())
+            {
+                dbConnection.Open();
+
+                string query = "INSERT INTO Usuarios (Nombre, Apellido, DNI, Telefono, Email, Imagen, Suspendido) VALUES (@Nombre, @Apellido, @DNI, @Telefono, @Email, @Imagen, @Suspendido)";
+                dbConnection.Execute(query, usuario);
+            }
+        }
     }
 }

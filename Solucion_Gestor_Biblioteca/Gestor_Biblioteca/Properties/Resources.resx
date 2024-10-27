@@ -118,37 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="bruce_banner" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\ImagenesUsuarios\bruce_banner.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="carol_danvers" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\ImagenesUsuarios\carol_danvers.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="clint_barton" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\ImagenesUsuarios\clint_barton.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="defaultimagenes" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>defaultimagenes.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="natasha_romanoff" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\ImagenesUsuarios\natasha_romanoff.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="peter_parker" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\ImagenesUsuarios\peter_parker.jpeg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="stephen_strange" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\ImagenesUsuarios\stephen_strange.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="steve_rogers" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\ImagenesUsuarios\steve_rogers.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="thor_odinson" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\ImagenesUsuarios\thor_odinson.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="tony_stark" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\ImagenesUsuarios\tony_stark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="wanda_maximoff" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\ImagenesUsuarios\wanda_maximoff.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
