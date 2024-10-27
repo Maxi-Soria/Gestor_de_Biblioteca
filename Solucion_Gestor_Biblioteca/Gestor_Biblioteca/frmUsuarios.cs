@@ -9,7 +9,10 @@ namespace Gestor_Biblioteca
 {
     public partial class frmUsuarios : Form
     {
+        bool modificar = false;
         UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
+        private Usuario usuarioSeleccionado;
+
 
         public frmUsuarios()
         {
@@ -24,19 +27,19 @@ namespace Gestor_Biblioteca
         {
             if (dgvUsuarios.SelectedRows.Count > 0)
             {
-                var selectedRow = dgvUsuarios.SelectedRows[0].DataBoundItem as Usuario;
-                if (selectedRow != null)
+                usuarioSeleccionado = dgvUsuarios.SelectedRows[0].DataBoundItem as Usuario;
+                if (usuarioSeleccionado != null)
                 {
-                    txtNombre.Text = selectedRow.Nombre;
-                    txtApellido.Text = selectedRow.Apellido;
-                    txtEmail.Text = selectedRow.Email;
-                    txtTelefono.Text = selectedRow.Telefono;
-                    txtDNI.Text = selectedRow.DNI;
-                    chkSuspendido.Checked = selectedRow.Suspendido;
+                    txtNombre.Text = usuarioSeleccionado.Nombre;
+                    txtApellido.Text = usuarioSeleccionado.Apellido;
+                    txtEmail.Text = usuarioSeleccionado.Email;
+                    txtTelefono.Text = usuarioSeleccionado.Telefono;
+                    txtDNI.Text = usuarioSeleccionado.DNI;
+                    chkSuspendido.Checked = usuarioSeleccionado.Suspendido;
 
                     pbFoto.Image = null; // Limpiar imagen antes de cargar una nueva
 
-                    string imagePath = Path.Combine(Application.StartupPath, selectedRow.Imagen);
+                    string imagePath = Path.Combine(Application.StartupPath, usuarioSeleccionado.Imagen);
 
                     try
                     {
@@ -60,6 +63,7 @@ namespace Gestor_Biblioteca
             }
         }
 
+
         private void CargarUsuarios()
         {
             dgvUsuarios.DataSource = usuarioNegocio.ObtenerUsuarios();
@@ -68,13 +72,27 @@ namespace Gestor_Biblioteca
             dgvUsuarios.Columns["ID"].Visible = false;
             dgvUsuarios.Columns["Email"].Width = 200; // Ajusta este valor según sea necesario
 
+
             MostrarPaneles(false);
+            bloquearCampos(false);
         }
 
         private void BtnModificar_Click(object sender, EventArgs e)
         {
-            // Aquí puedes agregar la lógica para modificar el usuario seleccionado.
+            bloquearCampos(true);
+            if (dgvUsuarios.SelectedRows.Count > 0)
+            {
+                MostrarPaneles(true);
+                dgvUsuarios.Enabled = false;
+                modificar = true;
+                txtDNI.Enabled = false;
+            }
+            else
+            {
+                MessageBox.Show("Seleccione un usuario para modificar.");
+            }
         }
+
 
         private void BtnEliminar_Click(object sender, EventArgs e)
         {
@@ -86,7 +104,7 @@ namespace Gestor_Biblioteca
             MostrarPaneles(true);
             dgvUsuarios.Enabled = false;
             dgvUsuarios.ClearSelection();
-            pbUsuarioNuevo.Image = Properties.Resources.defaultimagenes;
+            pbFoto.Image = Properties.Resources.defaultimagenes;
 
             //Vaciar Campos
             LimpiarCampos();
@@ -108,7 +126,7 @@ namespace Gestor_Biblioteca
                     String rutaImagenSeleccionada = openFileDialog.FileName;
 
                     // Cargar la imagen en el PictureBox
-                    pbUsuarioNuevo.Image = Image.FromFile(rutaImagenSeleccionada);
+                    pbFoto.Image = Image.FromFile(rutaImagenSeleccionada);
                 }
             }
         }
@@ -125,24 +143,62 @@ namespace Gestor_Biblioteca
 
         private void btnGrabar_Click(object sender, EventArgs e)
         {
-            Usuario nuevo = new Usuario();
+            if (string.IsNullOrEmpty(txtNombre.Text) || string.IsNullOrEmpty(txtApellido.Text) || string.IsNullOrEmpty(txtEmail.Text) || string.IsNullOrEmpty(txtTelefono.Text) || string.IsNullOrEmpty(txtDNI.Text))
+            {
+                MessageBox.Show("Todos los campos son obligatorios");
+                return;
+            }
+
             UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
 
-            nuevo.Nombre = txtNombre.Text;
-            nuevo.Apellido = txtApellido.Text;
-            nuevo.Email = txtEmail.Text;
-            nuevo.Telefono = txtTelefono.Text;
-            nuevo.DNI = txtDNI.Text;
-            nuevo.Suspendido = false;
+            if (modificar && usuarioSeleccionado != null)
+            {
+                // Editar el usuario existente
+                usuarioSeleccionado.Nombre = txtNombre.Text;
+                usuarioSeleccionado.Apellido = txtApellido.Text;
+                usuarioSeleccionado.Email = txtEmail.Text;
+                usuarioSeleccionado.Telefono = txtTelefono.Text;
+                usuarioSeleccionado.Suspendido = chkSuspendido.Checked;
 
-            // Guardar la imagen en la carpeta de la aplicación
-            string nombreImagen = $"{nuevo.Nombre}_{nuevo.Apellido}_{DateTime.Now.ToString("yyyyMMddHHmmss")}.png";
-            string rutaImagen = Path.Combine(Application.StartupPath, nombreImagen);
-            pbUsuarioNuevo.Image.Save(rutaImagen, System.Drawing.Imaging.ImageFormat.Png);
-            nuevo.Imagen = nombreImagen;
+                // Guardar la imagen en la carpeta de la aplicación
+                string nombreImagen = $"{usuarioSeleccionado.Nombre}_{usuarioSeleccionado.Apellido}_{DateTime.Now.ToString("yyyyMMddHHmmss")}.png";
+                string rutaImagen = Path.Combine(Application.StartupPath, nombreImagen);
+                pbFoto.Image.Save(rutaImagen, System.Drawing.Imaging.ImageFormat.Png);
+                usuarioSeleccionado.Imagen = nombreImagen;
 
-            // Aquí puedes agregar la lógica para guardar el nuevo usuario.
-            usuarioNegocio.InsertarUsuario(nuevo);
+                usuarioNegocio.ActualizarUsuario(usuarioSeleccionado);
+
+                MessageBox.Show("Usuario actualizado con éxito.");
+            }
+            else
+            {
+                // Insertar un nuevo usuario
+                if (usuarioNegocio.ExisteDNI(txtDNI.Text))
+                {
+                    MessageBox.Show("El DNI ya existe en la base de datos");
+                    return;
+                }
+
+                Usuario nuevo = new Usuario
+                {
+                    Nombre = txtNombre.Text,
+                    Apellido = txtApellido.Text,
+                    Email = txtEmail.Text,
+                    Telefono = txtTelefono.Text,
+                    DNI = txtDNI.Text,
+                    Suspendido = chkSuspendido.Checked
+                };
+
+                // Guardar la imagen en la carpeta de la aplicación
+                string nombreImagen = $"{nuevo.Nombre}_{nuevo.Apellido}_{DateTime.Now.ToString("yyyyMMddHHmmss")}.png";
+                string rutaImagen = Path.Combine(Application.StartupPath, nombreImagen);
+                pbFoto.Image.Save(rutaImagen, System.Drawing.Imaging.ImageFormat.Png);
+                nuevo.Imagen = nombreImagen;
+
+                usuarioNegocio.InsertarUsuario(nuevo);
+                MessageBox.Show("Usuario insertado con éxito.");
+            }
+
             LimpiarCampos();
             MostrarPaneles(false);
             CargarUsuarios();
@@ -155,7 +211,10 @@ namespace Gestor_Biblioteca
                 dgvUsuarios.Rows[cantidad - 1].Selected = true;
             }
             dgvUsuarios.Enabled = true;
+            modificar = false;
+            usuarioSeleccionado = null;
         }
+
 
         private void LimpiarCampos()
         {
@@ -172,6 +231,16 @@ namespace Gestor_Biblioteca
         {
             pnlUsuarioNuevo.Visible = oculto;
             pnlGrabarNuevo.Visible = oculto;
+        }
+
+        private void bloquearCampos(bool bloqueo)
+        {
+            txtNombre.Enabled = bloqueo;
+            txtApellido.Enabled = bloqueo;
+            txtEmail.Enabled = bloqueo;
+            txtTelefono.Enabled = bloqueo;
+            txtDNI.Enabled = bloqueo;
+            chkSuspendido.Enabled = bloqueo;
         }
     }
 }
